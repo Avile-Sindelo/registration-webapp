@@ -24,6 +24,15 @@ app.get('/', async function(req, res){
     res.render('index');
 });
 
+app.post('/add_reg', async function(req, res){
+    let reg = req.body.reg;
+    
+    let prefix = reg.substring(0, 2).toUpperCase();
+    
+    await database.addRegistration(reg, prefix)
+    res.redirect('/');
+});
+
 const port = 3000;
 app.listen(port, function(){
     console.log(`Server running at port : ${port}`)
