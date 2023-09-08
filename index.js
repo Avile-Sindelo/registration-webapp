@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/', async function(req, res){
-    
     res.render('index');
 });
 

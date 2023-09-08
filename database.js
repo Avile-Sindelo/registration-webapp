@@ -12,8 +12,16 @@ export default function Database(database){
                                             WHERE town_name=$1;`, [town]);
     }
 
+    async function duplicate(reg){
+        let regCount = await database.one('SELECT count(*) FROM registrations WHERE registration=$1', [reg]);
+        if(regCount.count > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
     async function addRegistration(reg, prefix){
-        if(reg.startsWith(prefix)){
+        if(reg.startsWith(prefix) && await duplicate(reg) == false){
             await database.none(`INSERT INTO registrations (registration, town_id) VALUES($1, $2)`, [reg, await getTownId(prefix)]);
         }
     }
@@ -23,11 +31,11 @@ export default function Database(database){
         return town.id;
     }
 
-
     return{
         viewAllPlates,
         viewAllFromTown,
         addRegistration,
-        getTownId
+        getTownId,
+        duplicate
     }
 }
