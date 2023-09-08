@@ -21,15 +21,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/', async function(req, res){
-    res.render('index');
+
+    res.render('index', {regs: await database.viewAllPlates()});
 });
 
 app.post('/add_reg', async function(req, res){
+    //Extract the registration from the request object
     let reg = req.body.reg;
-    
+    //Extract the prefix from the registration string
     let prefix = reg.substring(0, 2).toUpperCase();
-    
-    await database.addRegistration(reg, prefix)
+
+    //Populate the database
+    await database.addRegistration(reg, prefix);
+
     res.redirect('/');
 });
 

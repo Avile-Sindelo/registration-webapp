@@ -5,4 +5,10 @@
         <input type="text" value="" name="reg">
         <button type="submit">Add</button>
     </form>
+
+    {{#each regs}}
+        <tr>
+            <td>{{registration}}</td>
+        </tr>
+    {{/each}}
 </div>
