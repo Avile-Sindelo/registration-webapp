@@ -1,14 +1,19 @@
 <div id="container">
-    <h1> Hello there, Welcome to the view engine</h1>
+    <h1>Registration webapp</h1>
     <form action="/add_reg" method="POST">
         <label for="reg">Registration Number : </label>
         <input type="text" value="" name="reg">
         <button type="submit">Add</button>
     </form>
 
+    <form action="/reset" method="GET">
+        <button type="submit">Reset</button>
+    </form>
+    
     {{#each regs}}
-        <tr>
-            <td>{{registration}}</td>
-        </tr>
+        <div id="reg-display">
+            <p class="reg-plate">{{registration}}</p>
+        </div>
     {{/each}}
+
 </div>

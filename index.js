@@ -26,15 +26,25 @@ app.get('/', async function(req, res){
 });
 
 app.post('/add_reg', async function(req, res){
-    //Extract the registration from the request object
-    let reg = req.body.reg;
-    //Extract the prefix from the registration string
-    let prefix = reg.substring(0, 2).toUpperCase();
-
-    //Populate the database
-    await database.addRegistration(reg, prefix);
-
+    //Make sure a registration has been entered
+    if(req.body.reg){
+        //Extract the registration from the request object
+        let reg = req.body.reg.toUpperCase();
+        //Extract the prefix from the registration string
+        let prefix = reg.substring(0, 2).toUpperCase();
+        
+        //Populate the database
+        let addingResults = await database.addRegistration(reg, prefix);
+        console.log(addingResults);
+    } else {
+        console.log('Enter a registration please!');
+    }
     res.redirect('/');
+});
+
+app.get('/reset', async function(req, res){
+    await database.reset();
+    
 });
 
 const port = 3000;

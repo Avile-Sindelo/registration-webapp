@@ -1,3 +1,22 @@
 #container{
     background-color: gainsboro;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.reg-plate{
+    background-color: lightgrey;
+    border: 2px solid #333;
+    border-radius: 5px;
+    color: #333;
+    width: fit-content;
+    padding: 1% 2%;
+}
+
+#reg-display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
