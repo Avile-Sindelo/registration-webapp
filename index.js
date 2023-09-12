@@ -42,9 +42,20 @@ app.post('/add_reg', async function(req, res){
     res.redirect('/');
 });
 
-app.get('/reset', async function(req, res){
-    await database.reset();
+app.post('/town_regs', async function(req, res){
+    let town = req.body.town;
+
+    if(town == undefined){
+        console.log('Please select a town');res.redirect('/');
+    } else {
+        res.render('index', {regs: await database.viewAllFromTown(town)});
+    }
+
     
+});
+
+app.get('/reset', async function(req, res){
+    await database.reset(); 
 });
 
 const port = 3000;
