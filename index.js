@@ -10,6 +10,11 @@ const postgresP = pgp();
 const db = postgresP(connectionString);
 const database = Database(db);
 
+let messages = {
+    error: '',
+    success: ''
+}
+
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
@@ -22,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', async function(req, res){
 
-    res.render('index', {regs: await database.viewAllPlates()});
+    res.render('index', {regs: await database.viewAllPlates(), messages: messages});
 });
 
 app.post('/add_reg', async function(req, res){
@@ -30,14 +35,37 @@ app.post('/add_reg', async function(req, res){
     if(req.body.reg){
         //Extract the registration from the request object
         let reg = req.body.reg.toUpperCase();
-        //Extract the prefix from the registration string
-        let prefix = reg.substring(0, 2).toUpperCase();
+
+        //Format testing
+        function registrationTest(registrationNumber) {
+            const regex = /^C[A-Z]\s\d{3}[-\s]?\d{3}$/;
+            return regex.test(registrationNumber);
+        }
         
-        //Populate the database
-        let addingResults = await database.addRegistration(reg, prefix);
-        console.log(addingResults);
+        //Extract the prefix from the registration string
+        let prefix = reg.substring(0, 2);
+
+        //Check the reg prefix against the "allowedPrefix" method
+        let prefixList = await database.allowedPrefix();
+        let allowedList = [];
+         
+        for(let i = 0; i < prefixList.length; i++){
+            allowedList.push(prefixList[i].reg_prefix);
+        }
+
+        if(registrationTest(reg) && allowedList.includes(prefix)){
+            //Populate the database
+            let addingResults = await database.addRegistration(reg, prefix);
+            console.log(addingResults);
+            addingResults == 'Registration added successfully.' ? messages.success = addingResults : messages.error = addingResults;
+        } else {
+            console.log('Invalid registration');
+            messages.error = 'Invalid registration';
+        }
+         
     } else {
         console.log('Enter a registration please!');
+        messages.error = 'Enter a registration please!';
     }
     res.redirect('/');
 });
@@ -46,16 +74,17 @@ app.post('/town_regs', async function(req, res){
     let town = req.body.town;
 
     if(town == undefined){
-        console.log('Please select a town');res.redirect('/');
+        console.log('Please select a town');
+        messages.error = 'Please select a town';
+        res.redirect('/');
     } else {
         res.render('index', {regs: await database.viewAllFromTown(town)});
-    }
-
-    
+    } 
 });
 
 app.get('/reset', async function(req, res){
     await database.reset(); 
+    res.redirect('/');
 });
 
 const port = 3000;

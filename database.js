@@ -20,6 +20,7 @@ export default function Database(database){
             return false;
         }
     }
+
     async function addRegistration(reg, prefix){
         if(reg.startsWith(prefix) && await duplicate(reg) == false){
             await database.none(`INSERT INTO registrations (registration, town_id) VALUES($1, $2)`, [reg, await getTownId(prefix)]);
@@ -40,6 +41,11 @@ export default function Database(database){
         }
     }
 
+    async function allowedPrefix(){
+       let prefs = await database.manyOrNone('SELECT reg_prefix FROM towns');
+       return prefs;
+    }
+
     async function reset(){
         await database.none('DELETE FROM registrations');
     }
@@ -50,6 +56,7 @@ export default function Database(database){
         addRegistration,
         getTownId,
         duplicate,
+        allowedPrefix,
         reset
     }
 }

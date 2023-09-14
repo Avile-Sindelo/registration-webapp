@@ -9,7 +9,7 @@
 .reg-plate{
     background-color: lightgrey;
     border: 2px solid #333;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #333;
     width: fit-content;
     padding: 1% 2%;
@@ -20,3 +20,16 @@
     justify-content: center;
     align-items: center;
 }
+
+#error-message{
+    color: crimson;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#success-message{
+    color: green;
+    text-align: center;
+    font-size: 1.5em;
+}
+
