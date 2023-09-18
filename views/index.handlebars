@@ -1,13 +1,13 @@
 <div id="container">
     <h1>Registration webapp</h1>
-    <p id="error-message">{{messages.error}}</p>
+    <p id="error-message">{{error}}</p>
     <form action="/add_reg" method="POST">
         <label for="reg">Registration Number : </label>
         <input type="text" value="" name="reg">
         <button type="submit">Add</button>
     </form>
 
-    <p id="success-message">{{messages.success}}</p>
+    <p id="success-message">{{success}}</p>
 
     <form action="/town_regs" method="POST">
         <input type="radio" name="town" value="Cape Town"> Cape Town
@@ -32,5 +32,20 @@
 <script>
     function resetRegs(){
         alert('You have just deleted all the records in the registrations table');
+    }
+
+    let errorMessage = document.querySelector('#error-message');
+    let successMessage = document.querySelector('#success-message');
+
+    if(errorMessage){
+       setTimeout(function(){
+            errorMessage.textContent = '';
+       }, 3000)
+    } 
+    
+    if(successMessage){
+        setTimeout(function(){
+            successMessage.textContent = '';
+        }, 3000)
     }
 </script>

@@ -3,6 +3,9 @@ import { engine } from 'express-handlebars';
 import bodyParser from 'body-parser';
 import pgp from 'pg-promise';
 import Database from './database.js';
+import flash from 'express-flash';
+import session from 'express-session';
+
 
 const app = express();
 const connectionString = process.env.DATABASE_URL || 'postgres://wfvgcjkj:yf-poQPnYsVABiOj7y8wd1aDj3I7Qv2V@trumpet.db.elephantsql.com/wfvgcjkj?ssl=true';
@@ -15,7 +18,6 @@ let messages = {
     success: ''
 }
 
-
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
@@ -23,11 +25,16 @@ app.set('views', './views');
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true
+  }));
 
+app.use(flash());
 
 app.get('/', async function(req, res){
-
-    res.render('index', {regs: await database.viewAllPlates(), messages: messages});
+    res.render('index', {regs: await database.viewAllPlates(), success: messages.success, error: messages.error});
 });
 
 app.post('/add_reg', async function(req, res){
@@ -38,7 +45,7 @@ app.post('/add_reg', async function(req, res){
 
         //Format testing
         function registrationTest(registrationNumber) {
-            const regex = /^C[A-Z]\s\d{3}[-\s]?\d{3}$/;
+            const regex = /^C[A-Z]\s\d{3}[-\s]?\d{3}$/ /*|| /^CK\s\d{4}$/ */;
             return regex.test(registrationNumber);
         }
         
@@ -58,9 +65,12 @@ app.post('/add_reg', async function(req, res){
             let addingResults = await database.addRegistration(reg, prefix);
             console.log(addingResults);
             addingResults == 'Registration added successfully.' ? messages.success = addingResults : messages.error = addingResults;
+            // addingResults == 'Registration added successfully.' ? req.flash('success', addingResults) : req.flash('error', addingResults);
+            // console.log('req.flash(success) : ', req.flash('success'));
+            // console.log('req.flash(failure) : ', req.flash('success'));
         } else {
             console.log('Invalid registration');
-            messages.error = 'Invalid registration';
+            messages.error = 'Invalid registration'; 
         }
          
     } else {
@@ -84,6 +94,9 @@ app.post('/town_regs', async function(req, res){
 
 app.get('/reset', async function(req, res){
     await database.reset(); 
+    //clear the messages
+    messages.error = '';
+    messages.success = '';
     res.redirect('/');
 });
 
