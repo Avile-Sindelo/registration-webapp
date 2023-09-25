@@ -10,9 +10,12 @@
     <p id="success-message">{{success}}</p>
 
     <form action="/town_regs" method="POST" id="town-regs">
+        <input type="radio" name="town" value="all"> All Towns
         <input type="radio" name="town" value="Cape Town"> Cape Town
         <input type="radio" name="town" value="Bellville"> Bellville
         <input type="radio" name="town" value="Stellenbosch"> Stellenbosch
+        <input type="radio" name="town" value="Paarl"> Paarl
+        <input type="radio" name="town" value="Beaufort West"> Beaufort West
         <button type="submit" id="show-btn">Show</button>
     </form>
 

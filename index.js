@@ -88,8 +88,11 @@ app.post('/town_regs', async function(req, res){
         messages.error = 'Please select a town';
         res.redirect('/');
     } else {
+        town == 'all' ? res.render('index', {regs: await database.viewAllPlates()}) : 
         res.render('index', {regs: await database.viewAllFromTown(town)});
     } 
+
+    
 });
 
 app.get('/reset', async function(req, res){
