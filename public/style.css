@@ -7,12 +7,12 @@
 }
 
 .reg-plate{
-    background-color: lightgrey;
+    background-color: white;
     border: 2px solid #333;
-    border-radius: 2px;
+    border-radius: 5px;
     color: #333;
     width: fit-content;
-    padding: 1% 2%;
+    padding: 1em 1.5em;
 }
 
 #reg-display{
@@ -31,5 +31,51 @@
     color: green;
     text-align: center;
     font-size: 1.5em;
+}
+
+#reg-inputs, #town-regs{
+    margin: 2.3em 0;
+}
+
+#reset-form{
+    margin: 1.7em 0;
+}
+
+input{
+    border: 1.5px solid black;
+    border-radius: 25px;
+    padding: .6em;
+}
+
+h1{
+    text-shadow: 1px 2px 1px cadetblue;
+}
+
+#add-btn{
+    padding: .5em 1em;
+    margin: 0 0 0 1em;
+    background-color: lightgreen;
+    border: 1.5px solid black;
+    border-radius: 20px;
+}
+
+#show-btn{
+    margin: 0 0 0 2em;
+    background-color: lightsteelblue;
+    padding: .5em 1em;
+    border: 1.5px solid black;
+    border-radius: 20px;
+}
+
+#reset-btn{
+    background-color: lightcoral;
+    border: 1.5px solid black;
+    border-radius: 20px;
+    padding: .5em 1em;
+}
+
+#add-btn:hover, #show-btn:hover, #reset-btn:hover{
+    background-color: white;
+    font-weight: 600;
 }
 

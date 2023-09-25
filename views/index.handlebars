@@ -1,23 +1,23 @@
 <div id="container">
-    <h1>Registration webapp</h1>
+    <h1>Registrations webapp</h1>
     <p id="error-message">{{error}}</p>
-    <form action="/add_reg" method="POST">
+    <form action="/add_reg" method="POST" id="reg-inputs">
         <label for="reg">Registration Number : </label>
         <input type="text" value="" name="reg">
-        <button type="submit">Add</button>
+        <button type="submit" id="add-btn">Add</button>
     </form>
 
     <p id="success-message">{{success}}</p>
 
-    <form action="/town_regs" method="POST">
+    <form action="/town_regs" method="POST" id="town-regs">
         <input type="radio" name="town" value="Cape Town"> Cape Town
         <input type="radio" name="town" value="Bellville"> Bellville
         <input type="radio" name="town" value="Stellenbosch"> Stellenbosch
-        <button type="submit">Show</button>
+        <button type="submit" id="show-btn">Show</button>
     </form>
 
-    <form action="/reset" method="GET" onsubmit="resetRegs()">
-        <button type="submit">Reset</button>
+    <form action="/reset" method="GET" onsubmit="resetRegs()" id="reset-form">
+        <button type="submit" id="reset-btn">Reset</button>
     </form>
 
     {{#each regs}}
@@ -39,13 +39,13 @@
 
     if(errorMessage){
        setTimeout(function(){
-            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
        }, 3000)
     } 
     
     if(successMessage){
         setTimeout(function(){
-            successMessage.textContent = '';
+            successMessage.style.display = 'none';
         }, 3000)
     }
 </script>
