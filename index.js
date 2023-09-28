@@ -3,9 +3,6 @@ import { engine } from 'express-handlebars';
 import bodyParser from 'body-parser';
 import pgp from 'pg-promise';
 import Database from './database.js';
-import flash from 'express-flash';
-import session from 'express-session';
-
 
 const app = express();
 const connectionString = process.env.DATABASE_URL || 'postgres://wfvgcjkj:yf-poQPnYsVABiOj7y8wd1aDj3I7Qv2V@trumpet.db.elephantsql.com/wfvgcjkj?ssl=true';
@@ -25,16 +22,10 @@ app.set('views', './views');
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true
-  }));
-
-app.use(flash());
 
 app.get('/', async function(req, res){
-    res.render('index', {regs: await database.viewAllPlates(), success: messages.success, error: messages.error});
+    res.render('index', {regs: await database.viewAllPlates(), success: messages.success, error: messages.error
+        });
 });
 
 app.post('/add_reg', async function(req, res){
@@ -63,19 +54,22 @@ app.post('/add_reg', async function(req, res){
         if(registrationTest(reg) && allowedList.includes(prefix)){
             //Populate the database
             let addingResults = await database.addRegistration(reg, prefix);
-            console.log(addingResults);
-            addingResults == 'Registration added successfully.' ? messages.success = addingResults : messages.error = addingResults;
-            // addingResults == 'Registration added successfully.' ? req.flash('success', addingResults) : req.flash('error', addingResults);
-            // console.log('req.flash(success) : ', req.flash('success'));
-            // console.log('req.flash(failure) : ', req.flash('success'));
+
+            if(addingResults == 'Registration added successfully.'){
+                messages.success = addingResults;
+                messages.error = '';
+            } else {
+                messages.error = addingResults;
+                messages.success = '';
+            }
         } else {
-            console.log('Invalid registration');
-            messages.error = 'Invalid registration'; 
+            messages.error = 'Invalid registration';
+            messages.success = ''; 
         }
          
     } else {
-        console.log('Enter a registration please!');
         messages.error = 'Enter a registration please!';
+        messages.success = '';
     }
     res.redirect('/');
 });
@@ -84,15 +78,13 @@ app.post('/town_regs', async function(req, res){
     let town = req.body.town;
 
     if(town == undefined){
-        console.log('Please select a town');
         messages.error = 'Please select a town';
+        messages.success = '';
         res.redirect('/');
     } else {
         town == 'all' ? res.render('index', {regs: await database.viewAllPlates()}) : 
         res.render('index', {regs: await database.viewAllFromTown(town)});
     } 
-
-    
 });
 
 app.get('/reset', async function(req, res){

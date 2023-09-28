@@ -1,6 +1,8 @@
 <div id="container">
     <h1>Registrations webapp</h1>
+
     <p id="error-message">{{error}}</p>
+    
     <form action="/add_reg" method="POST" id="reg-inputs">
         <label for="reg">Registration Number : </label>
         <input type="text" value="" name="reg">
@@ -8,7 +10,7 @@
     </form>
 
     <p id="success-message">{{success}}</p>
-
+ 
     <form action="/town_regs" method="POST" id="town-regs">
         <input type="radio" name="town" value="all"> All Towns
         <input type="radio" name="town" value="Cape Town"> Cape Town
@@ -40,15 +42,17 @@
     let errorMessage = document.querySelector('#error-message');
     let successMessage = document.querySelector('#success-message');
 
-    if(errorMessage){
+    if(errorMessage.textContent){
        setTimeout(function(){
             errorMessage.style.display = 'none';
+            errorMessage.textContent = '';
        }, 3000)
     } 
     
-    if(successMessage){
+    if(successMessage.textContent){
         setTimeout(function(){
             successMessage.style.display = 'none';
+            successMessage.textContent = '';
         }, 3000)
     }
 </script>
