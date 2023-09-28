@@ -35,7 +35,7 @@ describe('Database tests for the Registration webapp', function(){
     it('should test if the function returns the appropriate error if the registrstion number is already in the in database', async function(){
         let database = Database(db);
         await database.addRegistration('CA 453-453', 'CA');
-        
+        await database.addRegistration('CA 453-453', 'CA');
         assert.equal('Duplicate records are not allowed', await database.addRegistration('CA 453-453', 'CA'));
     });
     
