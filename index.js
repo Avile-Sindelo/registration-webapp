@@ -82,8 +82,20 @@ app.post('/town_regs', async function(req, res){
         messages.success = '';
         res.redirect('/');
     } else {
-        town == 'all' ? res.render('index', {regs: await database.viewAllPlates()}) : 
-        res.render('index', {regs: await database.viewAllFromTown(town)});
+        if(town == 'all'){
+            res.render('index', {regs: await database.viewAllPlates()})
+        } else { //some town has been passed
+            
+            let townRegs = await database.viewAllFromTown(town);
+            if(townRegs.length == 0){
+                messages.error = `No registration from ${town} yet`;
+                messages.success = '';
+                res.redirect('/');
+            } else { //At least one registration from this town has been found
+                res.render('index', {regs: townRegs});
+            }
+        }
+        
     } 
 });
 
