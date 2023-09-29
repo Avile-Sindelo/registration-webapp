@@ -90,7 +90,7 @@ app.post('/town_regs', async function(req, res){
             if(townRegs.length == 0){
                 messages.error = `No registration from ${town} yet`;
                 messages.success = '';
-                res.redirect('/');
+                res.render('index', {regs: townRegs, error: messages.error});
             } else { //At least one registration from this town has been found
                 res.render('index', {regs: townRegs});
             }
