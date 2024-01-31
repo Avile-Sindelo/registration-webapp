@@ -1,5 +1,6 @@
 <div id="container">
     <h1>Registrations webapp</h1>
+    <h3 class="sub-head">Add a registration below</h3>
 
     <p id="error-message">{{error}}</p>
     
@@ -10,6 +11,8 @@
     </form>
 
     <p id="success-message">{{success}}</p>
+
+    <h3 class="sub-head">Filter registrations by selecting an option below</h3>
  
     <form action="/town_regs" method="POST" id="town-regs">
         <input type="radio" name="town" value="all"> All Towns
