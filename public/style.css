@@ -75,6 +75,10 @@ h1{
     border-radius: 20px;
 }
 
+#glossary{
+    text-align: end;
+    color: lightseagreen;
+}
 #reset-btn{
     background-color: lightcoral;
     border: 1.5px solid black;
