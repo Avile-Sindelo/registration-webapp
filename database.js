@@ -54,6 +54,11 @@ export default function Database(database){
         await database.none('DELETE FROM registrations');
     }
 
+    async function getTowns(){
+        let towns = await database.manyOrNone('SELECT town_name FROM towns');
+        return towns;
+    }
+
     return{
         viewAllPlates,
         viewAllFromTown,
@@ -61,6 +66,7 @@ export default function Database(database){
         getTownId,
         duplicate,
         allowedPrefix,
-        reset
+        reset,
+        getTowns
     }
 }

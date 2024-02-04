@@ -1,6 +1,16 @@
 <div id="container">
-    <h1>Registrations webapp</h1>
-    <p id="glossary">Glossary</p>
+    <h1 id="main-heading">Registrations webapp</h1>
+    {{!-- Get a google font family for this heading --}}
+    <h4 id="glossary">Glossary</h4>
+    <ol class="glossary-list">
+        <li>Cape Town : CA XXX XXX, CA XXXXXX, CA XXX-XXX</li>
+        <li>Stellenbosch : CL XXX XXX, CL XXXXXX, CL XXX-XXX</li>
+        <li>Paarl : CJ XXX XXX, CJ XXXXXX, CJ XXX-XXX</li>
+        <li>Bellville : CY XXX XXX, CY XXXXXX, CY XXX-XXX</li>
+        <li>Beaufort West : CJ XXX XXX, CJ XXXXXX, CJ XXX-XXX</li>
+        <li>Cooperation/Business : CK XXXX</li>
+    </ol>
+        
     <h3 class="sub-head">Add a registration below</h3>
 
     <p id="error-message">{{error}}</p>
@@ -12,30 +22,37 @@
     </form>
 
     <p id="success-message">{{success}}</p>
-
-    {{#each regs}}
-        <div id="reg-display">
-            <p class="reg-plate">{{registration}}</p>
-        </div>
-    {{/each}}
+    <div id="reg-display-div">
+        {{#each regs}}
+            <div id="reg-display">
+                <p class="reg-plate">{{registration}}</p>
+            </div>
+        {{/each}}
+    </div>
 
     <h3 class="sub-head">Filter registrations by selecting a town below</h3>
  
+
+    {{!-- look for a way to get these cities from DB & us a loop for this --}}
     <form action="/town_regs" method="POST" id="town-regs">
-        <input type="radio" name="town" value="all"> All Towns
-        <input type="radio" name="town" value="Cape Town"> Cape Town
-        <input type="radio" name="town" value="Bellville"> Bellville
-        <input type="radio" name="town" value="Stellenbosch"> Stellenbosch
-        <input type="radio" name="town" value="Paarl"> Paarl
-        <input type="radio" name="town" value="Beaufort West"> Beaufort West
+        <input type="radio" name="town" value="all" class="radio-input"> All Towns
+        {{#each towns}}
+            <input type="radio" name="town" value={{this.town_name}}> {{this.town_name}}
+        {{/each}}
+
+        {{!-- <input type="radio" name="town" value="Cape Town" class="radio-input"> Cape Town
+        <input type="radio" name="town" value="Bellville" class="radio-input"> Bellville
+        <input type="radio" name="town" value="Stellenbosch" class="radio-input"> Stellenbosch
+        <input type="radio" name="town" value="Paarl" class="radio-input"> Paarl
+        <input type="radio" name="town" value="Beaufort West" class="radio-input"> Beaufort West --}}
         <button type="submit" id="show-btn">Show</button>
     </form>
+
+    <hr />
 
     <form action="/reset" method="GET" onsubmit="resetRegs()" id="reset-form">
         <button type="submit" id="reset-btn">Reset</button>
     </form>
-
-
 </div>
 
 

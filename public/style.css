@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Protest+Revolution&family=Rubik+Glitch+Pop&display=swap');
+
 #container{
     background-color: gainsboro;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: .5em;
 }
 
 .reg-plate{
@@ -19,6 +22,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 160px;
+    height: 110px;
 }
 
 #error-message{
@@ -31,6 +36,13 @@
     color: green;
     text-align: center;
     font-size: 1.5em;
+}
+
+#reg-display-div{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 25em;
 }
 
 #reg-inputs, #town-regs{
@@ -75,10 +87,35 @@ h1{
     border-radius: 20px;
 }
 
+#main-heading{
+    font-family: 'Rubik Glitch Pop', system-ui;
+}
+
+#glossary, .glossary-list{
+    margin: 0 0 0 65em;
+    font-family: 'Arial';
+    font-size: 1em;
+}
+
+.glossary-list > li{
+    padding: .3em 0;
+    color: darkolivegreen
+}
+
 #glossary{
-    text-align: end;
+    color: #FC6736;
+    font-family: 'Protest Revolution', sans-serif;
+    margin-bottom: 1em;
+}
+
+#glossary-list{
     color: lightseagreen;
 }
+
+.radio-input{
+    font-family: 'Lato';
+}
+
 #reset-btn{
     background-color: lightcoral;
     border: 1.5px solid black;
@@ -91,3 +128,41 @@ h1{
     font-weight: 600;
 }
 
+@media screen AND (max-width: 768px) {
+    .glossary-list, #glossary{
+        margin: 0;
+    }
+
+    #add-btn{
+        margin: 1em 1em;
+    }
+
+    #reg-input > input {
+        margin: 1em 1em;
+    }
+
+    #town-regs{
+        margin: 0 1em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #radio-input{
+        padding: 0;
+    }
+
+    #main-heading{
+        text-align: center;
+    }
+
+    #reg-display{
+        width: 180px;
+        height: 100px;
+    }
+
+    #reg-display-div{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

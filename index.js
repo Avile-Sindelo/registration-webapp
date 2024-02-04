@@ -24,7 +24,8 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', async function(req, res){
-    res.render('index', {regs: await database.viewAllPlates(), success: messages.success, error: messages.error
+    let towns = await database.getTowns();
+    res.render('index', {regs: await database.viewAllPlates(), success: messages.success, error: messages.error, towns
         });
 });
 
@@ -36,8 +37,9 @@ app.post('/add_reg', async function(req, res){
 
         //Format testing
         function registrationTest(registrationNumber) {
-            const regex = /^C[A-Z]\s\d{3}[-\s]?\d{3}$/ /*|| /^CK\s\d{4}$/ */;
-            return regex.test(registrationNumber);
+            const regex = /^C[A-Z]\s\d{3}[-\s]?\d{3}$/ /*||  */;
+            const regex2 = /^CK\s\d{4}$/;
+            return regex.test(registrationNumber) || regex2.test(registrationNumber);
         }
         
         //Extract the prefix from the registration string
@@ -76,6 +78,8 @@ app.post('/add_reg', async function(req, res){
 
 app.post('/town_regs', async function(req, res){
     let town = req.body.town;
+    let towns = await database.getTowns(); 
+    console.log('Selected City: ', town); 
 
     if(town == undefined){
         messages.error = 'Please select a town';
@@ -83,16 +87,16 @@ app.post('/town_regs', async function(req, res){
         res.redirect('/');
     } else {
         if(town == 'all'){
-            res.render('index', {regs: await database.viewAllPlates()})
+            res.render('index', {regs: await database.viewAllPlates(), towns})
         } else { //some town has been passed
             
             let townRegs = await database.viewAllFromTown(town);
             if(townRegs.length == 0){
                 messages.error = `No registration from ${town} yet`;
                 messages.success = '';
-                res.render('index', {regs: townRegs, error: messages.error});
+                res.render('index', {regs: townRegs, error: messages.error, towns});
             } else { //At least one registration from this town has been found
-                res.render('index', {regs: townRegs});
+                res.render('index', {regs: townRegs, towns});
             }
         }
         
@@ -103,8 +107,9 @@ app.get('/reset', async function(req, res){
     await database.reset(); 
     //clear the messages
     messages.error = '';
-    messages.success = '';
-    res.redirect('/');
+    messages.success = 'You have successfully reset the application!';
+    // res.redirect('/');
+    res.render('index', {success: messages.success})
 });
 
 const port = 3000;
