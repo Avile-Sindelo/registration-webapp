@@ -95,7 +95,9 @@ app.post('/town_regs', async function(req, res){
                 messages.success = '';
                 res.render('index', {regs: townRegs, error: messages.error, towns});
             } else { //At least one registration from this town has been found
-                res.render('index', {regs: townRegs, towns});
+                messages.success = `Registrations from ${town} :`;
+                messages.error = '';
+                res.render('index', {regs: townRegs, towns, success: messages.success, error: messages.error});
             }
         }
         
