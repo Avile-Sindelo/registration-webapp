@@ -128,6 +128,10 @@ h1{
     font-weight: 600;
 }
 
+.selection-options{
+    display: inline;
+}
+
 @media screen AND (max-width: 768px) {
     .glossary-list, #glossary{
         margin: 0;
@@ -153,6 +157,10 @@ h1{
 
     #main-heading{
         text-align: center;
+    }
+
+    #show-btn{
+        margin: 1em 0 0 0;
     }
 
     #reg-display{

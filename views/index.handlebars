@@ -35,16 +35,19 @@
 
     {{!-- look for a way to get these cities from DB & us a loop for this --}}
     <form action="/town_regs" method="POST" id="town-regs">
-        <input type="radio" name="town" value="all" class="radio-input"> All Towns
-        {{#each towns}}
-            <input type="radio" name="town" value={{this.town_name}}> {{this.town_name}}
-        {{/each}}
+        <div class="selection-options">
+            <input type="radio" name="town" value="all" class="radio-input"> 
+            <label>All Towns</label>
+        </div>
+        <div class="selection-options">
+            {{#each towns}}
+                <input type="radio" name="town" value={{this.town_name}} class="radio-input"> 
+                <label>{{this.town_name}}</label>
+            {{/each}}
 
-        {{!-- <input type="radio" name="town" value="Cape Town" class="radio-input"> Cape Town
-        <input type="radio" name="town" value="Bellville" class="radio-input"> Bellville
-        <input type="radio" name="town" value="Stellenbosch" class="radio-input"> Stellenbosch
-        <input type="radio" name="town" value="Paarl" class="radio-input"> Paarl
-        <input type="radio" name="town" value="Beaufort West" class="radio-input"> Beaufort West --}}
+        </div>
+
+       
         <button type="submit" id="show-btn">Show</button>
     </form>
 

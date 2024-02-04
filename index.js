@@ -79,7 +79,6 @@ app.post('/add_reg', async function(req, res){
 app.post('/town_regs', async function(req, res){
     let town = req.body.town;
     let towns = await database.getTowns(); 
-    console.log('Selected City: ', town); 
 
     if(town == undefined){
         messages.error = 'Please select a town';
