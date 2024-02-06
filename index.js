@@ -88,7 +88,8 @@ app.post('/town_regs', async function(req, res){
         if(town == 'all'){
             res.render('index', {regs: await database.viewAllPlates(), towns})
         } else { //some town has been passed
-            
+            // Debugging : review the name of the town.
+            console.log('Selected town : ', town);
             let townRegs = await database.viewAllFromTown(town);
             if(townRegs.length == 0){
                 messages.error = `No registration from ${town} yet`;
