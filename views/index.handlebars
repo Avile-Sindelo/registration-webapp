@@ -55,7 +55,7 @@
     <hr>
 
     <form action="/reset" method="GET" onsubmit="resetRegs()" id="reset-form">
-        <button type="submit" id="reset-btn">Reset</button>
+        <button type="submit" id="reset-btn" onclick="return confirm('Are you sure you want to reset the App?')">Reset</button>
     </form>
 </div>
 
