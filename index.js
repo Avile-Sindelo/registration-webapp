@@ -112,12 +112,13 @@ app.post('/town_regs', async function(req, res){
 });
 
 app.get('/reset', async function(req, res){
+    let towns = await database.getTowns();
     await database.reset(); 
     //clear the messages
     messages.error = '';
     messages.success = 'You have successfully reset the application!';
     // res.redirect('/');
-    res.render('index', {success: messages.success})
+    res.render('index', {success: messages.success, towns})
 });
 
 const port = 3000;
