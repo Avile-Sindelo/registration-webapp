@@ -103,9 +103,12 @@ h1{
 }
 
 #glossary{
-    color: #FC6736;
+    color: white;
+    text-shadow: 1px 1px 1px #FC6736;
     font-family: 'Protest Revolution', sans-serif;
     margin-bottom: 1em;
+    font-size: 150%;
+    margin-right: 3em;
 }
 
 #glossary-list{
