@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Protest+Revolution&family=Rubik+Glitch+Pop&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Comfortaa:wght@300&family=Inconsolata:wght@500&family=Poppins:wght@200&family=Protest+Revolution&family=Rubik+Glitch+Pop&display=swap');
 
 #container{
     background-color: gainsboro;
@@ -53,22 +53,36 @@
     margin: 1.7em 0;
 }
 
+#add-reg-label{
+    font-family: 'Poppins', sans-serif;
+    font-weight: lighter;
+    text-shadow: 2px 2px 2px lightslategrey;
+    padding: 0 0 0 .5em;
+    font-size: 120%;
+}
+
+
 input{
     border: 1.5px solid black;
     border-radius: 25px;
     padding: .6em;
 }
 
-h1{
-    text-shadow: 1px 2px 1px cadetblue;
+.sub-head{
+    font-family: 'Protest Revolution', sans-serif;
+    letter-spacing: 1px;
+    color: navajowhite;
+    font-size: 150%;
+    text-align: center;
+    text-shadow: 1px 1px 1px #333;
 }
 
-.sub-head{
-    font-family: monospace;
-    letter-spacing: 1px;
-    color: #333;
-    font-weight: lighter;
-    text-align: center;
+.radio-label{
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2px;
+    font-size: 115%;
+    text-shadow: 1px 1px 1px snow;
+    font-weight: bold;
 }
 
 #add-btn{
@@ -77,6 +91,9 @@ h1{
     background-color: lightgreen;
     border: 1.5px solid black;
     border-radius: 20px;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 #show-btn{
@@ -85,10 +102,16 @@ h1{
     padding: .5em 1em;
     border: 1.5px solid black;
     border-radius: 20px;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 #main-heading{
     font-family: 'Rubik Glitch Pop', system-ui;
+    color: khaki;
+    letter-spacing: .5px;
+    text-shadow: 1px 1px 1px black;
 }
 
 #glossary, .glossary-list{
@@ -99,7 +122,9 @@ h1{
 
 .glossary-list > li{
     padding: .3em 0;
-    color: darkolivegreen
+    color: darkolivegreen;
+    font-family: 'Inconsolata', sans-serif;
+    text-shadow: 1px 1px 1px ghostwhite;
 }
 
 #glossary{
@@ -108,7 +133,7 @@ h1{
     font-family: 'Protest Revolution', sans-serif;
     margin-bottom: 1em;
     font-size: 150%;
-    margin-right: 3em;
+    margin-right: 25em;
 }
 
 #glossary-list{
@@ -124,6 +149,9 @@ h1{
     border: 1.5px solid black;
     border-radius: 20px;
     padding: .5em 1em;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 #add-btn:hover, #show-btn:hover, #reset-btn:hover{
@@ -135,7 +163,7 @@ h1{
     display: inline;
 }
 
-@media screen AND (max-width: 768px) {
+@media screen AND (max-width: 900px) {
     .glossary-list, #glossary{
         margin: 0;
     }
@@ -149,7 +177,7 @@ h1{
     }
 
     #town-regs{
-        margin: 0 1em;
+        margin: 1em;
         display: flex;
         flex-direction: column;
     }
