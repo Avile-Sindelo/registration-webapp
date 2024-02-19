@@ -160,7 +160,8 @@ input{
 }
 
 .selection-options{
-    display: inline;
+    display: flex;
+    flex-direction: row;
 }
 
 @media screen AND (max-width: 900px) {
@@ -204,4 +205,14 @@ input{
         flex-direction: row;
         flex-wrap: wrap;
     }
+
+    .selection-options{
+        flex-direction: column;
+    }
+
+    .radio-input{
+        width: fit-content;
+    }
 }
+
+
